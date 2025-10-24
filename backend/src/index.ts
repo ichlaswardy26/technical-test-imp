@@ -5,6 +5,7 @@ import posts from './routes/posts.ts';
 import { Scalar } from '@scalar/hono-api-reference';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { HTTPException } from 'hono/http-exception';
+import { cors } from 'hono/cors';
 import 'dotenv/config';
 
 type Env = {
@@ -118,6 +119,16 @@ app.get(
 );
 
 app.get('/openapi.json', serveStatic({ path: './public/openapi.json' }));
+
+app.use(
+    '*',
+    cors({
+        origin: (origin) =>
+            origin === 'https://technical-test-imp-production.up.railway.app' ? origin : '*',
+        allowHeaders: ['Content-Type', 'Authorization'],
+        allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+    })
+);
 
 app.route('/auth', auth);
 app.route('/posts', posts);
