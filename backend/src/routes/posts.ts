@@ -71,6 +71,11 @@ posts.post('/', async (c) => {
     if (thumbnailFile instanceof File) {
         const file = thumbnailFile as File;
         const fileName = `${userId}/${Date.now()}-${file.name}`;
+
+        if (file.size > 5 * 1024 * 1024) {
+            throw new HTTPException(400, { message: 'File too large. Max 5MB.' });
+        }
+
         const { data, error } = await supabaseAdmin.storage
             .from('post-thumbnails')
             .upload(fileName, file.stream(), {
@@ -78,7 +83,25 @@ posts.post('/', async (c) => {
                 upsert: false,
             });
 
-        if (error) throw new HTTPException(500, { message: 'Upload failed' });
+        if (error) {
+            console.error('Supabase upload error:', error);
+
+            if (error.message.includes('The resource was not found')) {
+                throw new HTTPException(500, {
+                    message: 'Storage bucket "post-thumbnails" not found. Please create it in Supabase.',
+                });
+            }
+            if (error.message.includes('new row violates row-level security policy')) {
+                throw new HTTPException(403, {
+                    message: 'Upload not allowed. Check RLS policies on bucket.',
+                });
+            }
+            throw new HTTPException(500, {
+                message: 'Failed to upload image. Please try again.',
+                cause: error.message,
+            });
+        }
+
         thumbnailUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/post-thumbnails/${data.path}`;
     }
 
