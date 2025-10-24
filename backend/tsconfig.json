@@ -3,7 +3,7 @@
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "lib": ["ES2015", "ES2022", "DOM"],
+    "lib": ["ES2015", "ES2016", "ES2022", "DOM"],
     "strict": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,

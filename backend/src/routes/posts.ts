@@ -69,35 +69,30 @@ posts.post('/', async (c) => {
 
     let thumbnailUrl = null;
     if (thumbnailFile instanceof File) {
-        const file = thumbnailFile as File;
+        const file = thumbnailFile;
         const fileName = `${userId}/${Date.now()}-${file.name}`;
 
-        if (file.size > 5 * 1024 * 1024) {
-            throw new HTTPException(400, { message: 'File too large. Max 5MB.' });
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        if (!allowedTypes.includes(file.type)) {
+            throw new HTTPException(400, {
+                message: 'Invalid file type. Only JPG, PNG, GIF, WEBP allowed.',
+            });
         }
+
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
 
         const { data, error } = await supabaseAdmin.storage
             .from('post-thumbnails')
-            .upload(fileName, file.stream(), {
+            .upload(fileName, buffer, {
                 contentType: file.type,
                 upsert: false,
             });
 
         if (error) {
             console.error('Supabase upload error:', error);
-
-            if (error.message.includes('The resource was not found')) {
-                throw new HTTPException(500, {
-                    message: 'Storage bucket "post-thumbnails" not found. Please create it in Supabase.',
-                });
-            }
-            if (error.message.includes('new row violates row-level security policy')) {
-                throw new HTTPException(403, {
-                    message: 'Upload not allowed. Check RLS policies on bucket.',
-                });
-            }
             throw new HTTPException(500, {
-                message: 'Failed to upload image. Please try again.',
+                message: 'Failed to upload image to storage',
                 cause: error.message,
             });
         }
