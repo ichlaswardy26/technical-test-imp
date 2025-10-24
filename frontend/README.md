@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend CRUD Post — Technical Test
 
-## Getting Started
+Frontend ini dibangun menggunakan **Next.js** dan **React** untuk mengelola data postingan (Create, Read, Update, Delete) melalui integrasi dengan **API Backend**.
 
-First, run the development server:
+## 🚀 Fitur Utama
+
+- Menampilkan daftar postingan dari API
+- Membuat postingan baru
+- Mengedit postingan
+- Menghapus postingan
+- Validasi form input
+- Terintegrasi penuh dengan REST API
+- Menggunakan **DaisyUI** untuk komponen antarmuka yang modern dan responsif
+
+## 🧰 Teknologi yang Digunakan
+
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [DaisyUI](https://daisyui.com/)
+- [Axios](https://axios-http.com/)
+- [ESLint](https://eslint.org/)
+- [PostCSS](https://postcss.org/)
+
+## 📦 Instalasi & Menjalankan Project
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/ichlaswardy26/technical-test-imp.git
+cd technical-test-imp/frontend
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Konfigurasi Environment Variable
+
+Buat file `.env.local` di root folder dengan isi seperti berikut:
+
+```bash
+NEXT_PUBLIC_API_BASE_URL=https://api-domain.com
+```
+
+> Ganti `https://api-domain.com` dengan URL backend API yang sesuai.
+
+### 4. Jalankan Aplikasi
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka di browser: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧩 Struktur Folder
 
-## Learn More
+```
+src/
+├── app/               # Halaman utama Next.js (app router)
+├── components/        # Komponen UI (menggunakan DaisyUI)
+├── services/          # File konfigurasi axios / API calls
+├── styles/            # File CSS / Tailwind config
+└── utils/             # Helper / fungsi utilitas
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔗 Integrasi API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Aplikasi ini berkomunikasi dengan backend melalui endpoint RESTful API:
 
-## Deploy on Vercel
+| Method | Endpoint | Deskripsi |
+|:-------|:----------|:-----------|
+| GET | `/posts` | Mengambil daftar postingan |
+| GET | `/posts/:id` | Mengambil detail postingan |
+| POST | `/posts` | Menambahkan postingan baru |
+| PUT | `/posts/:id` | Memperbarui postingan |
+| DELETE | `/posts/:id` | Menghapus postingan |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧪 Perintah Tambahan
+
+| Perintah | Fungsi |
+|-----------|--------|
+| `npm run lint` | Mengecek kesalahan kode |
+| `npm run build` | Membuat build production |
+| `npm run start` | Menjalankan build hasil production |
+
+---
+
+## 👨‍💻 Kontributor
+
+Dibuat oleh **Ichlas Wardy** untuk keperluan **Technical Test - IMP**.  
+Project ini bersifat open-source dan dapat dikembangkan lebih lanjut.
+
+---
+
+## 📄 Lisensi
+
+MIT License © 2025 Ichlas Wardy
