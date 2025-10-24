@@ -62,7 +62,7 @@ Implements core features: **Authentication** and **Post Management with Image Th
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/technical-test-imp.git
+git clone https://github.com/ichlaswardy26/technical-test-imp.git
 cd technical-test-imp/backend
 ```
 
