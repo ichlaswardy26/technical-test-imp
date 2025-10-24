@@ -17,7 +17,7 @@ export default function PostDetail({ params }) {
     useEffect(() => {
         const token = getAuthToken();
         if (!token) {
-            toast.error('Silakan login untuk melihat postingan');
+            toast.error('Silakan login untuk melihat postingan', { position: 'top-center' });
             router.push('/');
             return;
         }
@@ -35,7 +35,7 @@ export default function PostDetail({ params }) {
                 setPost(data);
             } catch (err) {
                 console.error('Gagal muat postingan:', err);
-                toast.error(err.message || 'Postingan tidak ditemukan');
+                toast.error(err.message || 'Postingan tidak ditemukan', { position: 'top-right' });
                 router.push('/posts');
             } finally {
                 setLoading(false);
@@ -50,15 +50,15 @@ export default function PostDetail({ params }) {
 
         try {
             await postApi.delete(id);
-            toast.success('Postingan berhasil dihapus');
+            toast.success('Postingan berhasil dihapus', { position: 'top-right' });
             router.push('/posts');
         } catch (err) {
-            toast.error(err.message || 'Gagal menghapus');
+            toast.error(err.message || 'Gagal menghapus', { position: 'top-right' });
         }
     };
 
     const handleEdit = () => {
-        toast.info('Fitur edit belum tersedia');
+        toast.info('Fitur edit belum tersedia', { position: 'top-right' });
     };
 
     if (loading) {

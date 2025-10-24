@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { postApi } from '../lib/api';
 import Image from 'next/image';
 
@@ -9,6 +9,8 @@ export default function PostCard({ post }) {
             window.location.reload();
         }
     };
+
+     const router = useRouter();
 
     return (
         <div className="card bg-base-100 shadow-xl">
@@ -31,9 +33,9 @@ export default function PostCard({ post }) {
                         {new Date(post.createdAt).toLocaleDateString('id-ID')}
                     </span>
                     <div className="space-x-2">
-                        <Link href={`/posts/${post.id}`} className="btn btn-sm btn-ghost">
+                        <button onClick={() => router.push('/posts/' + post.id)} className="btn btn-sm btn-ghost">
                             Lihat
-                        </Link>
+                        </button>
                         <button onClick={handleDelete} className="btn btn-sm btn-error">
                             Hapus
                         </button>
